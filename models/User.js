@@ -2,10 +2,17 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+const notificationSchema = new mongoose.Schema({
+  message: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+  read: { type: Boolean, default: false },
+});
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  notifications: [notificationSchema], // <-- Add this
 });
 
 // Hash password before saving
